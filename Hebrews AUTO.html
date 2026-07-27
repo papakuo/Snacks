@@ -1,27 +1,30 @@
+<!-- HTML Audio Element -->
 <a href="Hebrews.html">[Hebrews Home]</a>
 <ul><h3>Hebrews Snacks Total</h3></ul>
-<audio id="audioPlayer" controls>
-    <source src="The Son Audio short.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+<audio id="audioPlayer" controls></audio>
 
 <script>
-    const audioPlayer = document.getElementById("audioPlayer");
+  // Array of audio file paths
+  const playlist = ["The Son Audio short.mp3", "The Son Audio.mp3", "The New Salvation Audio short.mp3", "The New Salvation Audio.mp3", "The Man Audio short.mp3", "The Man Audio.mp3", "The High Priest Audio short.mp3", "The High Priest Audio.mp3", "The Builder Audio short.mp3", "The Builder Audio.mp3", "The Believers Audio short.mp3", "The Believers Audio.mp3", "The Rest Audio short.mp3", "The Rest Audio.mp3", "Another Day Audio short.mp3", "Another Day Audio.mp3", "The Word Audio short.mp3", "The Word Audio.mp3", "The Obedience Audio short.mp3", "The Obedience Audio.mp3", "The Maturity Audio short.mp3", "11 - The Maturity Audio.mp3", "The Oath Audio short.mp3", "The Oath Audio.mp3", "The Forever Priest Audio short.mp3", "The Forever Priest Audio.mp3", "The New Covenant Audio short.mp3", "The New Covenant Audio.mp3", "The Holy Places Audio short.mp3", "The Holy Places Audio.mp3", "The Eternal Heritance Audio short.mp3", "The Eternal Heritance Audio short.mp3", "The Eternal Heritance Audio.mp3", "The Heavenly Things Audio short.mp3", "The Heavenly Things Audio.mp3", "The Sanctified Audio short.mp3", "The Sanctified Audio.mp3", "The Perfected Audio short.mp3", "The Perfected Audio.mp3", "The New and Living Way Audio short.mp3", "The New and Living Way Audio.mp3", "The Deliberate Sins Audio short.mp3", "The Deliberate Sins Audio.mp3", "The Sufferings Audio.short.mp3", "The Sufferings Audio.mp3", "Abel and Enoch - Faith Audio short.mp3", "Abel and Enoch - Faith Audio.mp3", "Noah and Abraham - The City Audio short.mp3", "Noah and Abraham - The City Audio.mp3", "Sarah - The Descendants Audio short.mp3", "The Heavenly Homeland Audio short.mp3", "The Heavenly Homeland Audio.mp3", "Isaac, Jacob and Joseph - The Heritage Audio short.mp3", "Isaac, Jacob and Joseph - The Heritage Audio.mp3", "Moses - The Inheritor Audio short.mp3", "Moses - The Inheritor Audio.mp3", "Jericho and Rahab - The Walk Audio short.mp3", "Jericho and Rahab - The Walk Audio.mp3", "Whom the World Was Not Worthy Audio short.mp3", "Whom the World Was Not Worthy Audio.mp3", "The Founder and Perfecter Audio short.mp3", "The Founder and Perfecter Audio.mp3", "The Discipline Audio short.mp3", "The Discipline Audio.mp3", "The Fruit Audio short.mp3", "The Fruit Audio.mp3", "The Mounts Audio short.mp3", "The Mounts Audio.mp3", "The Fire Audio short.mp3", "The Fire Audio.mp3", "The Love Audio short.mp3", "The Love Audio.mp3", "The Camp Audio short.mp3", "The Camp Audio.mp3", "The Lips Audio short.mp3", "The Lips Audio.mp3", "Amen Audio short.mp3", "Amen Audio.mp3"];  let currentTrackIndex = 0;
 
-    // Array of tracks (add your filenames here)
-    const playlist = ["The Son Audio short.mp3", "The Son Audio.mp3", "The New Salvation Audio short.mp3", "The New Salvation Audio.mp3", "The Man Audio short.mp3", "The Man Audio.mp3", "The High Priest Audio short.mp3", "The High Priest Audio.mp3", "The Builder Audio short.mp3", "The Builder Audio.mp3", "The Believers Audio short.mp3", "The Believers Audio.mp3", "The Rest Audio short.mp3", "The Rest Audio.mp3", "Another Day Audio short.mp3", "Another Day Audio.mp3", "The Word Audio short.mp3", "The Word Audio.mp3", "The Obedience Audio short.mp3", "The Obedience Audio.mp3", "The Maturity Audio short.mp3", "11 - The Maturity Audio.mp3", "The Oath Audio short.mp3", "The Oath Audio.mp3", "The Forever Priest Audio short.mp3", "The Forever Priest Audio.mp3", "The New Covenant Audio short.mp3", "The New Covenant Audio.mp3", "The Holy Places Audio short.mp3", "The Holy Places Audio.mp3", "The Eternal Heritance Audio short.mp3", "The Eternal Heritance Audio short.mp3", "The Eternal Heritance Audio.mp3", "The Heavenly Things Audio short.mp3", "The Heavenly Things Audio.mp3", "The Sanctified Audio short.mp3", "The Sanctified Audio.mp3", "The Perfected Audio short.mp3", "The Perfected Audio.mp3", "The New and Living Way Audio short.mp3", "The New and Living Way Audio.mp3", "The Deliberate Sins Audio short.mp3", "The Deliberate Sins Audio.mp3", "The Sufferings Audio.short.mp3", "The Sufferings Audio.mp3", "Abel and Enoch - Faith Audio short.mp3", "Abel and Enoch - Faith Audio.mp3", "Noah and Abraham - The City Audio short.mp3", "Noah and Abraham - The City Audio.mp3", "Sarah - The Descendants Audio short.mp3", "The Heavenly Homeland Audio short.mp3", "The Heavenly Homeland Audio.mp3", "Isaac, Jacob and Joseph - The Heritage Audio short.mp3", "Isaac, Jacob and Joseph - The Heritage Audio.mp3", "Moses - The Inheritor Audio short.mp3", "Moses - The Inheritor Audio.mp3", "Jericho and Rahab - The Walk Audio short.mp3", "Jericho and Rahab - The Walk Audio.mp3", "Whom the World Was Not Worthy Audio short.mp3", "Whom the World Was Not Worthy Audio.mp3", "The Founder and Perfecter Audio short.mp3", "The Founder and Perfecter Audio.mp3", "The Discipline Audio short.mp3", "The Discipline Audio.mp3", "The Fruit Audio short.mp3", "The Fruit Audio.mp3", "The Mounts Audio short.mp3", "The Mounts Audio.mp3", "The Fire Audio short.mp3", "The Fire Audio.mp3", "The Love Audio short.mp3", "The Love Audio.mp3", "The Camp Audio short.mp3", "The Camp Audio.mp3", "The Lips Audio short.mp3", "The Lips Audio.mp3", "Amen Audio short.mp3", "Amen Audio.mp3"];
-    let currentTrack = 0;
+  const player = document.getElementById("audioPlayer");
 
-    // Event listener for when audio finishes
-    audioPlayer.addEventListener('ended', () => {
-        currentTrack++; // Move to the next index
-        
-        // Check if there are more tracks left in the array
-        if (currentTrack < playlist.length) {
-            audioPlayer.src = playlist[currentTrack]; // Update the file
-            audioPlayer.play(); // Start playing automatically
-        } else {
-            console.log("Playlist finished.");
-        }
-    });
+  // Load the first track initially
+  player.src = playlist[currentTrackIndex];
+
+  // Listen for the track to finish playing
+  player.addEventListener("ended", () => {
+    currentTrackIndex++;
+
+    // Check if there are more tracks left in the playlist
+    if (currentTrackIndex < playlist.length) {
+      // Create a 1-second (1000ms) delay before playing the next track
+      setTimeout(() => {
+        player.src = playlist[currentTrackIndex];
+        player.play().catch(error => console.log("Playback interaction required:", error));
+      }, 1000);
+    } else {
+      console.log("Playlist finished.");
+    }
+  });
 </script>
