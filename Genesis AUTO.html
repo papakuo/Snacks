@@ -1,32 +1,109 @@
 <!-- HTML Audio Element -->
 <a href="Genesis.html">[Genesis Home]</a>
-<ul><h3>Genesis Snacks Total</h3></ul>
+<ul><h3>Genesis Snacks Summary</h3></ul>
 
 <audio id="audioPlayer" controls></audio>
 
+<ul><h3>
+<input type="number" id="trackInput" placeholder="Enter Number">
+<button onclick="goToTrack()">Play Starters/Snacks</button>
+</h3></ul>
+
 <script>
-  // Array of audio file paths
-  const playlist = ["God's Stewardship Audio short.mp3", "God's Stewardship Audio.mp3", "Cain and Abel Audio short.mp3", "Cain and Abel Audio.mp3", "The Spirit and Life Audio short.mp3", "The Spirit and Life Audio.mp3", "The Nephilim Audio short.mp3", "The Nephilim Audio.mp3", "Noah's Faith Audio short.mp3", "Noah's Faith Audio.mp3", "Noah's Descendants Audio short.mp3", "Noah's Descendants Audio.mp3", "The Tower of Babel Audio short.mp3", "The Tower of Babel Audio.mp3", "Abram's Faith Audio short.mp3", "Abram's Faith Audio.mp3", "Abram's Earthly Offsoring Audio short.mp3", "Abram's Earthly Offsoring Audio.mp3", "Abram's Heavenly Offspring Audio short.mp3", "Abram's Heavenly Offspring Audio.mp3", "God's Covenant Audio short.mp3", "God's Covenant Audio.mp3", "Ismael and Isaac Audio short.mp3", "Ismael and Isaac Audio.mp3", "God's Friend Abraham Audio short.mp3", "God's Friend Abraham Audio.mp3", "Abraham and Abimelech Audio short.mp3", "Abraham and Abimelech Audio.mp3", "The Sonship Audio short.mp3", "The Sonship Audio.mp3", "Abraham's Redemption Audio short.mp3", "Abraham's Redemption Audio.mp3", "Sarah's Death Audio short.mp3", "Sarah's Death Audio.mp3", "Abraham's Last Command Audio short.mp3", "Abraham's Last Command Audio.mp3", "Isaac's Blessing Audio short.mp3", "Isaac's Blessing Audio.mp3", "The Family Feud Audio short.mp3", "The Family Feud Audio.mp3", "Jacob's Dream Audio short.mp3", "Jacob's Dream Audio.mp3", "Jacob Meets Rachel Audio short.mp3", "Jacob Meets Rachel Audio.mp3", "Jacob's Wives Audio short.mp3", "Jacob's Wives Audio.mp3", "Rachel's First Child Audio short.mp3", "Rachel's First Child Audio.mp3", "Jacob's rods Audio short.mp3", "Jacob's rods Audio.mp3", "Jacob's Escape Audio short.mp3", "Jacob's Escape Audio.mp3", "Mahanaim Audio short.mp3", "Mahanaim Audio.mp3", "Peniel Audio short.mp3", "Peniel Audio.mp3", "Jacob Meets Esau Audio short.mp3", "Jacob Meets Esau Audio.mp3", "Simeon And Levi Audio short.mp3", "Simeon And Levi Audio.mp3", "Jacob's Altar Audio short.mp3", "Jacob's Altar Audio.mp3", "Jacob's Sons Audio short.mp3", "Jacob's Sons Audio.mp3", "Esau's Descendants Audio short.mp3", "Esau's Descendants Audio.mp3", "Joseph's Dreams Audio short.mp3", "Joseph's Dreams Audio.mp3", "Joseph Being Betrayed Audio short.mp3", "Joseph Being Betrayed Audio.mp3", "Judah and Tamar Audio short.mp3", "Judah and Tamar Audio.mp3", "Perez and Zerah Audio short.mp3", "Perez and Zerah Audio.mp3", "Joseph's Temptation Audio short.mp3", "Joseph's Temptation Audio.mp3", "The Butler and Baker's Dreams Audio short.mp3", "The Butler and Baker's Dreams Audio.mp3", "Pharaoh's Dreams Audio short.mp3", "Pharaoh's Dreams Audio.mp3", "Joseph's Sons Audio short.mp3", "Joseph's Sons Audio.mp3", "Joseph Meets His Brothers Audio short.mp3", "Joseph Meets His Brothers Audio.mp3", "Joseph's Redemption Audio short.mp3", "Joseph's Redemption Audio.mp3", "Joseph's Restoration Audio short.mp3", "Joseph's Restoration Audio.mp3", "Judah's Devotion Audio short.mp3", "Judah's Devotion Audio.mp3", "Joseph's Reconcilation Audio short.mp3", "Joseph's Reconcilation Audio.mp3", "Jacob's Revival Audio short.mp3", "Jacob's Revival Audio.mp3", "Jacob's Journey to Egypt Audio short.mp3", "Jacob's Journey to Egypt Audio.mp3", "Israel Blesses Ephraim and Manasseh Audio short.mp3", "Israel Blesses Ephraim and Manasseh Audio.mp3", "Israel Blesses Four Older Sons Audio short.mp3", "Israel Blesses Four Older Sons Audio.mp3", "Israel Blesses Other Sons Audio short.mp3", "Israel Blesses Other Sons Audio.mp3", "Jacob's last command Audio short.mp3", "Jacob's last command Audio.mp3", "A New Beginning Audio short.mp3", "A New Beginning Audio.mp3"];
-  let currentTrackIndex = 0;
+const titles = [
+  "God's Stewardship Audio",
+  "Cain and Abel Audio",
+  "The Spirit and Life Audio",
+  "The Nephilim Audio",
+  "Noah's Faith Audio",
+  "Noah's Descendants Audio",
+  "The Tower of Babel Audio",
+  "Abram's Faith Audio",
+  "Abram's Earthly Offspring Audio",
+  "Abram's Heavenly Offspring Audio",
+  "God's Covenant Audio",
+  "Ismael and Isaac Audio",
+  "God's Friend Abraham Audio",
+  "Abraham and Abimelech Audio",
+  "The Sonship Audio",
+  "Abraham's Redemption Audio",
+  "Sarah's Death Audio",
+  "Abraham's Last Command Audio",
+  "Isaac's Blessing Audio",
+  "The Family Feud Audio",
+  "Jacob's Dream Audio",
+  "Jacob Meets Rachel Audio",
+  "Jacob's Wives Audio",
+  "Rachel's First Child Audio",
+  "Jacob's rods Audio",
+  "Jacob's Escape Audio",
+  "Mahanaim Audio",
+  "Peniel Audio",
+  "Jacob Meets Esau Audio",
+  "Simeon And Levi Audio",
+  "Jacob's Altar Audio",
+  "Jacob's Sons Audio",
+  "Esau's Descendants Audio",
+  "Joseph's Dreams Audio",
+  "Joseph Being Betrayed Audio",
+  "Judah and Tamar Audio",
+  "Perez and Zerah Audio",
+  "Joseph's Temptation Audio",
+  "The Butler and Baker's Dreams Audio",
+  "Pharaoh's Dreams Audio",
+  "Joseph's Sons Audio",
+  "Joseph Meets His Brothers Audio",
+  "Joseph's Redemption Audio",
+  "Joseph's Restoration Audio",
+  "Judah's Devotion Audio",
+  "Joseph's Reconcilation Audio",
+  "Jacob's Revival Audio",
+  "Jacob's Journey to Egypt Audio",
+  "Israel Blesses Ephraim and Manasseh Audio",
+  "Israel Blesses Four Older Sons Audio",
+  "Israel Blesses Other Sons Audio",
+  "Jacob's last command Audio",
+  "A New Beginning Audio"
+];
 
-  const player = document.getElementById("audioPlayer");
+const playlist = [];
+titles.forEach(title => {
+  playlist.push(`${title} short.mp3`);
+  playlist.push(`${title}.mp3`);
+});
 
-  // Load the first track initially
-  player.src = playlist[currentTrackIndex];
+let currentTrackIndex = 0;
+const player = document.getElementById("audioPlayer");
 
-  // Listen for the track to finish playing
-  player.addEventListener("ended", () => {
-    currentTrackIndex++;
+// Load first track
+player.src = playlist[currentTrackIndex];
 
-    // Check if there are more tracks left in the playlist
-    if (currentTrackIndex < playlist.length) {
-      // Create a 1-second (1000ms) delay before playing the next track
-      setTimeout(() => {
-        player.src = playlist[currentTrackIndex];
-        player.play().catch(error => console.log("Playback interaction required:", error));
-      }, 1000);
-    } else {
-      console.log("Playlist finished.");
-    }
-  });
+// Manual track selection
+function goToTrack() {
+  const input = document.getElementById("trackInput").value;
+  const index = Number(input) - 1;
+
+  if (index >= 0 && index < playlist.length) {
+    currentTrackIndex = index;
+    player.src = playlist[currentTrackIndex];
+    player.play();
+  } else {
+    alert("Track number out of range.");
+  }
+}
+
+// Auto-play next track when finished
+player.addEventListener("ended", () => {
+  currentTrackIndex++;
+
+  if (currentTrackIndex < playlist.length) {
+    setTimeout(() => {
+      player.src = playlist[currentTrackIndex];
+      player.play().catch(err => console.log("Playback interaction required:", err));
+    }, 1000);
+  } else {
+    console.log("Playlist finished.");
+  }
+});
 </script>
+

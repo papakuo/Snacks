@@ -1,30 +1,94 @@
 <!-- HTML Audio Element -->
 <a href="Hebrews.html">[Hebrews Home]</a>
-<ul><h3>Hebrews Snacks Total</h3></ul>
+<ul><h3>Hebrews Snacks Summary</h3></ul>
+
 <audio id="audioPlayer" controls></audio>
 
+<ul><h3>
+<input type="number" id="trackInput" placeholder="Enter Number">
+<button onclick="goToTrack()">Play Starters/Snacks</button>
+</h3></ul>
+
 <script>
-  // Array of audio file paths
-  const playlist = ["The Son Audio short.mp3", "The Son Audio.mp3", "The New Salvation Audio short.mp3", "The New Salvation Audio.mp3", "The Man Audio short.mp3", "The Man Audio.mp3", "The High Priest Audio short.mp3", "The High Priest Audio.mp3", "The Builder Audio short.mp3", "The Builder Audio.mp3", "The Believers Audio short.mp3", "The Believers Audio.mp3", "The Rest Audio short.mp3", "The Rest Audio.mp3", "Another Day Audio short.mp3", "Another Day Audio.mp3", "The Word Audio short.mp3", "The Word Audio.mp3", "The Obedience Audio short.mp3", "The Obedience Audio.mp3", "The Maturity Audio short.mp3", "11 - The Maturity Audio.mp3", "The Oath Audio short.mp3", "The Oath Audio.mp3", "The Forever Priest Audio short.mp3", "The Forever Priest Audio.mp3", "The New Covenant Audio short.mp3", "The New Covenant Audio.mp3", "The Holy Places Audio short.mp3", "The Holy Places Audio.mp3", "The Eternal Heritance Audio short.mp3", "The Eternal Heritance Audio short.mp3", "The Eternal Heritance Audio.mp3", "The Heavenly Things Audio short.mp3", "The Heavenly Things Audio.mp3", "The Sanctified Audio short.mp3", "The Sanctified Audio.mp3", "The Perfected Audio short.mp3", "The Perfected Audio.mp3", "The New and Living Way Audio short.mp3", "The New and Living Way Audio.mp3", "The Deliberate Sins Audio short.mp3", "The Deliberate Sins Audio.mp3", "The Sufferings Audio.short.mp3", "The Sufferings Audio.mp3", "Abel and Enoch - Faith Audio short.mp3", "Abel and Enoch - Faith Audio.mp3", "Noah and Abraham - The City Audio short.mp3", "Noah and Abraham - The City Audio.mp3", "Sarah - The Descendants Audio short.mp3", "The Heavenly Homeland Audio short.mp3", "The Heavenly Homeland Audio.mp3", "Isaac, Jacob and Joseph - The Heritage Audio short.mp3", "Isaac, Jacob and Joseph - The Heritage Audio.mp3", "Moses - The Inheritor Audio short.mp3", "Moses - The Inheritor Audio.mp3", "Jericho and Rahab - The Walk Audio short.mp3", "Jericho and Rahab - The Walk Audio.mp3", "Whom the World Was Not Worthy Audio short.mp3", "Whom the World Was Not Worthy Audio.mp3", "The Founder and Perfecter Audio short.mp3", "The Founder and Perfecter Audio.mp3", "The Discipline Audio short.mp3", "The Discipline Audio.mp3", "The Fruit Audio short.mp3", "The Fruit Audio.mp3", "The Mounts Audio short.mp3", "The Mounts Audio.mp3", "The Fire Audio short.mp3", "The Fire Audio.mp3", "The Love Audio short.mp3", "The Love Audio.mp3", "The Camp Audio short.mp3", "The Camp Audio.mp3", "The Lips Audio short.mp3", "The Lips Audio.mp3", "Amen Audio short.mp3", "Amen Audio.mp3"];  let currentTrackIndex = 0;
+const titles = [
+  "The Son Audio",
+  "The New Salvation Audio",
+  "The Man Audio",
+  "The High Priest Audio",
+  "The Builder Audio",
+  "The Believers Audio",
+  "The Rest Audio",
+  "Another Day Audio",
+  "The Word Audio",
+  "The Obedience Audio",
+  "The Maturity Audio",
+  "The Oath Audio",
+  "The Forever Priest Audio",
+  "The New Covenant Audio",
+  "The Holy Places Audio",
+  "The Eternal Heritance Audio",
+  "The Heavenly Things Audio",
+  "The Sanctified Audio",
+  "The Perfected Audio",
+  "The New and Living Way Audio",
+  "The Deliberate Sins Audio",
+  "The Sufferings Audio",
+  "Abel and Enoch - Faith Audio",
+  "Noah and Abraham - The City Audio",
+  "Sarah - The Descendants Audio",
+  "The Heavenly Homeland Audio",
+  "Isaac, Jacob and Joseph - The Heritage Audio",
+  "Moses - The Inheritor Audio",
+  "Jericho and Rahab - The Walk Audio",
+  "Whom the World Was Not Worthy Audio",
+  "The Founder and Perfecter Audio",
+  "The Discipline Audio",
+  "The Fruit Audio",
+  "The Mounts Audio",
+  "The Fire Audio",
+  "The Love Audio",
+  "The Camp Audio",
+  "The Lips Audio",
+  "Amen Audio"
+];
 
-  const player = document.getElementById("audioPlayer");
+const playlist = [];
+titles.forEach(title => {
+  playlist.push(`${title} short.mp3`);
+  playlist.push(`${title}.mp3`);
+});
 
-  // Load the first track initially
-  player.src = playlist[currentTrackIndex];
+let currentTrackIndex = 0;
+const player = document.getElementById("audioPlayer");
 
-  // Listen for the track to finish playing
-  player.addEventListener("ended", () => {
-    currentTrackIndex++;
+// Load first track
+player.src = playlist[currentTrackIndex];
 
-    // Check if there are more tracks left in the playlist
-    if (currentTrackIndex < playlist.length) {
-      // Create a 1-second (1000ms) delay before playing the next track
-      setTimeout(() => {
-        player.src = playlist[currentTrackIndex];
-        player.play().catch(error => console.log("Playback interaction required:", error));
-      }, 1000);
-    } else {
-      console.log("Playlist finished.");
-    }
-  });
+// Manual track selection
+function goToTrack() {
+  const input = document.getElementById("trackInput").value;
+  const index = Number(input) - 1;
+
+  if (index >= 0 && index < playlist.length) {
+    currentTrackIndex = index;
+    player.src = playlist[currentTrackIndex];
+    player.play();
+  } else {
+    alert("Track number out of range.");
+  }
+}
+
+// Auto-play next track when finished
+player.addEventListener("ended", () => {
+  currentTrackIndex++;
+
+  if (currentTrackIndex < playlist.length) {
+    setTimeout(() => {
+      player.src = playlist[currentTrackIndex];
+      player.play().catch(err => console.log("Playback interaction required:", err));
+    }, 1000);
+  } else {
+    console.log("Playlist finished.");
+  }
+});
 </script>

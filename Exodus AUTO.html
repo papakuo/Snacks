@@ -1,32 +1,102 @@
 <!-- HTML Audio Element -->
 <a href="Exodus.html">[Exodus Home]</a>
-<ul><h3>Exodus Snacks Total</h3></ul>
+<ul><h3>Exodus Snacks Summary</h3></ul>
 
 <audio id="audioPlayer" controls></audio>
 
+<ul><h3>
+<input type="number" id="trackInput" placeholder="Enter Number">
+<button onclick="goToTrack()">Play Starters/Snacks</button>
+</h3></ul>
+
 <script>
-  // Array of audio file paths
-  const playlist = ["Male Children Audio short.mp3", "Male Children Audio.mp3", "The Origin of Moses Audio short.mp3", "The Origin of Moses Audio.mp3", "The Burning Bush Audio short.mp3", "The Burning Bush Audio.mp3", "I Am Who I Am Audio short.mp3", "I Am Who I Am Audio.mp3", "Go Back to Egypt Audio short.mp3", "Go Back to Egypt Audio.mp3", "Making Bricks Audio short.mp3", "Making Bricks Audio.mp3", "The Lord Audio short.mp3", "The Lord Audio.mp3", "The Salvation Audio short.mp3", "The Salvation Audio.mp3", "The Water Turned to Blood Plague Audio short.mp3", "The Water Turned to Blood Plague Audio.mp3", "1The Frog, Gnat and Fly Plagues Audio short.mp3", "The Frog, Gnat and Fly Plagues Audio.mp3", "The Death on Livestock and Boil Plagues Audio short.mp3", "The Death on Livestock and Boil Plagues Audio.mp3", "The Hail Plague Audio short.mp3", "The Hail Plague Audio.mp3", "The Locust and Darkness Plagues Audio short.mp3", "The Locust and Darkness Plagues Audio.mp3", "The Final Plague Warning Audio short.mp3", "The Final Plague Warning Audio.mp3", "The Passover Audio short.mp3", "The Passover Audio.mp3", "The Tenth Plague and Exodus Audio short.mp3", "The Tenth Plague and Exodus Audio.mp3", "Crossing the Red Sea Audio short.mp3", "Crossing the Red Sea Audio.mp3", "Bitter Water Became Sweet Audio short.mp3", "Bitter Water Became Sweet Audio.mp3", "Manna Audio short.mp3", "Manna Audio.mp3", "The Lord is My Banner Audio short.mp3", "The Lord is My Banner Audio.mp3", "Jethro Audio short.mp3", "Jethro Audio.mp3", "Mount Sinai Audio short.mp3", "Mount Sinai Audio.mp3", "The Ten Commandments Audio short.mp3", "The Ten Commandments Audio.mp3", "Laws And Restitution Audio short.mp3", "Laws And Restitution Audio.mp3", "The Laws for Theft and Adultery Audio short.mp3", "The Laws for Theft and Adultery Audio.mp3", "The Laws for Neighbors Audio short.mp3", "The Laws for Neighbors Audio.mp3", "The Laws for Justice and Sabbath Audio short.mp3", "The Laws for Justice and Sabbath Audio.mp3", "The Laws for Worshipping God Audio short.mp3", "The Laws for Worshipping God Audio.mp3", "The Covenant Audio short.mp3", "The Covenant Audio.mp3", "The Sanctuary Audio short.mp3", "The Sanctuary Audio.mp3", "The Furniture Audio short.mp3", "The Furniture Audio.mp3", "The Tabernacle Audio short.mp3", "The Tabernacle Audio.mp3", "The Most Holy Place Audio short.mp3", "The Most Holy Place Audio.mp3", "The Altar Audio short.mp3", "The Altar Audio.mp3", "The Court and Oil Audio short.mp3", "The Court and Oil Audio.mp3", "The Garments Audio short.mp3", "The Garments Audio.mp3", "The Consecration Audio short.mp3", "The Consecration Audio.mp3", "The Altar of Incense and Census Audio short.mp3", "The Altar of Incense and Census Audio.mp3", "The Basin, Anointing Oil and Incense Audio short.mp3", "The Basin, Anointing Oil and Incense Audio.mp3", "Bezalel, Oholiab and the Sabbath Audio short.mp3", "Bezalel, Oholiab and the Sabbath Audio short.mp3", "Bezalel, Oholiab and the Sabbath Audio.mp3", "The Golden Calf Audio short.mp3", "The Golden Calf Audio.mp3", "Moses' Intercession Audio short.mp3", "Moses' Intercession Audio.mp3", "The Renewed Covenant Audio short.mp3", "The Renewed Covenant Audio.mp3", "Contribution for the Tabernacle Audio short.mp3", "Contribution for the Tabernacle Audio.mp3", "Building the Tabernacle Audio short.mp3", "Building the Tabernacle Audio short.mp3", "Building the Tabernacle Audio.mp3", "The Priestly Garments Audio short.mp3", "The Priestly Garments Audio.mp3", "The Completion of the Tabernacle Audio short.mp3", "The Completion of the Tabernacle Audio.mp3"];
-  let currentTrackIndex = 0;
+const titles = [
+  "Male Children Audio",
+  "The Origin of Moses Audio",
+  "The Burning Bush Audio",
+  "I Am Who I Am Audio",
+  "Go Back to Egypt Audio",
+  "Making Bricks Audio",
+  "The Lord Audio",
+  "The Salvation Audio",
+  "The Water Turned to Blood Plague Audio",
+  "The Frog, Gnat and Fly Plagues Audio",
+  "The Death on Livestock and Boil Plagues Audio",
+  "The Hail Plague Audio",
+  "The Locust and Darkness Plagues Audio",
+  "The Final Plague Warning Audio",
+  "The Passover Audio",
+  "The Tenth Plague and Exodus Audio",
+  "Crossing the Red Sea Audio",
+  "Bitter Water Became Sweet Audio",
+  "Manna Audio",
+  "The Lord is My Banner Audio",
+  "Jethro Audio",
+  "Mount Sinai Audio",
+  "The Ten Commandments Audio",
+  "Laws And Restitution Audio",
+  "The Laws for Theft and Adultery Audio",
+  "The Laws for Neighbors Audio",
+  "The Laws for Justice and Sabbath Audio",
+  "The Laws for Worshipping God Audio",
+  "The Covenant Audio",
+  "The Sanctuary Audio",
+  "The Furniture Audio",
+  "The Tabernacle Audio",
+  "The Most Holy Place Audio",
+  "The Altar Audio",
+  "The Court and Oil Audio",
+  "The Garments Audio",
+  "The Consecration Audio",
+  "The Altar of Incense and Census Audio",
+  "The Basin, Anointing Oil and Incense Audio",
+  "Bezalel, Oholiab and the Sabbath Audio",
+  "The Golden Calf Audio",
+  "Moses' Intercession Audio",
+  "The Renewed Covenant Audio",
+  "Contribution for the Tabernacle Audio",
+  "Building the Tabernacle Audio",
+  "The Priestly Garments Audio",
+  "The Completion of the Tabernacle Audio"
+];
 
-  const player = document.getElementById("audioPlayer");
+const playlist = [];
+titles.forEach(title => {
+  playlist.push(`${title} short.mp3`);
+  playlist.push(`${title}.mp3`);
+});
 
-  // Load the first track initially
-  player.src = playlist[currentTrackIndex];
+let currentTrackIndex = 0;
+const player = document.getElementById("audioPlayer");
 
-  // Listen for the track to finish playing
-  player.addEventListener("ended", () => {
-    currentTrackIndex++;
+// Load first track
+player.src = playlist[currentTrackIndex];
 
-    // Check if there are more tracks left in the playlist
-    if (currentTrackIndex < playlist.length) {
-      // Create a 1-second (1000ms) delay before playing the next track
-      setTimeout(() => {
-        player.src = playlist[currentTrackIndex];
-        player.play().catch(error => console.log("Playback interaction required:", error));
-      }, 1000);
-    } else {
-      console.log("Playlist finished.");
-    }
-  });
+// Manual track selection
+function goToTrack() {
+  const input = document.getElementById("trackInput").value;
+  const index = Number(input) - 1;
+
+  if (index >= 0 && index < playlist.length) {
+    currentTrackIndex = index;
+    player.src = playlist[currentTrackIndex];
+    player.play();
+  } else {
+    alert("Track number out of range.");
+  }
+}
+
+// Auto-play next track when finished
+player.addEventListener("ended", () => {
+  currentTrackIndex++;
+
+  if (currentTrackIndex < playlist.length) {
+    setTimeout(() => {
+      player.src = playlist[currentTrackIndex];
+      player.play().catch(err => console.log("Playback interaction required:", err));
+    }, 1000);
+  } else {
+    console.log("Playlist finished.");
+  }
+});
 </script>
