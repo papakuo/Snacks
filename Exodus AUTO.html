@@ -82,7 +82,7 @@ function goToTrack() {
     player.src = playlist[currentTrackIndex];
     player.play();
   } else {
-    alert("Track number out of range.");
+    alert("Track number out of range. Please enter a number no greater than 94");
   }
 }
 
@@ -96,7 +96,7 @@ player.addEventListener("ended", () => {
       player.play().catch(err => console.log("Playback interaction required:", err));
     }, 1000);
   } else {
-    console.log("Playlist finished.");
+    alert("The snack playlist finished.");
   }
 });
 </script>
