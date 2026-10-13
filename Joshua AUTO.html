@@ -1,0 +1,65 @@
+<!-- HTML Audio Element -->
+<a href="Joshua.html">[Joshua Home]</a>
+<ul><h3>Joshua Snacks Summary</h3></ul>
+
+<audio id="audioPlayer" controls></audio>
+
+<ul><h3>
+<input type="number" id="trackInput" placeholder="Enter Number">
+<button onclick="goToTrack()">Play Starters/Snacks</button>
+</h3></ul>
+
+<script>
+const titles = [
+  "The Mission Audio",
+  "Rahab of Jericho Audio",
+  "Crossing the Jordan Audio",
+  "Twelve Memorial Stones Audio",
+  "The Circumcision Audio",
+  "The Lords Army Audio",
+  "The Fall of Jericho Audio",
+  "The Sin of Achan Audio",
+  "The Fall of Ai Audio"
+];
+
+const playlist = [];
+titles.forEach(title => {
+  playlist.push(`${title} short.mp3`);
+  playlist.push(`${title}.mp3`);
+});
+
+let currentTrackIndex = 0;
+const player = document.getElementById("audioPlayer");
+
+// Load first track
+player.src = playlist[currentTrackIndex];
+
+// Manual track selection
+function goToTrack() {
+  const input = document.getElementById("trackInput").value;
+  const index = Number(input) - 1;
+
+  if (index >= 0 && index < playlist.length) {
+    currentTrackIndex = index;
+    player.src = playlist[currentTrackIndex];
+    player.play();
+  } else {
+    alert("Track number out of range. Please enter a number no greater than 18");
+  }
+}
+
+// Auto-play next track when finished
+player.addEventListener("ended", () => {
+  currentTrackIndex++;
+
+  if (currentTrackIndex < playlist.length) {
+    setTimeout(() => {
+      player.src = playlist[currentTrackIndex];
+      player.play().catch(err => console.log("Playback interaction required:", err));
+    }, 1000);
+  } else {
+    alert("The snack playlist finished.");
+  }
+});
+</script>
+
